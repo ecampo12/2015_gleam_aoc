@@ -29,6 +29,7 @@ if [[ $VALIDSESSION =~ "Puzzle inputs differ by user." ]] || [[ $VALIDSESSION =~
 fi
 
 gleam new ${project}
+gleam add simplifile # used to read files
 cd ${project}
 rm README.md
 
