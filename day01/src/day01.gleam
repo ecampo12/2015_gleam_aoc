@@ -6,10 +6,9 @@ import simplifile.{read}
 pub fn part1(floors: String) -> Int {
   string.to_graphemes(floors)
   |> list.fold(0, fn(acc, x) {
-    case x {
-      "(" -> acc + 1
-      ")" -> acc - 1
-      _ -> -1
+    case x == "(" {
+      True -> acc + 1
+      False -> acc - 1
     }
   })
 }
@@ -20,10 +19,9 @@ fn find_neg(f: List(String), floor: Int, count: Int) -> Int {
     _ ->
       case f {
         [x, ..rest] ->
-          case x {
-            "(" -> find_neg(rest, floor + 1, count + 1)
-            ")" -> find_neg(rest, floor - 1, count + 1)
-            _ -> count
+          case x == "(" {
+            True -> find_neg(rest, floor + 1, count + 1)
+            False -> find_neg(rest, floor - 1, count + 1)
           }
         _ -> count
       }
@@ -37,9 +35,9 @@ pub fn part2(floors: String) -> Int {
 pub fn main() {
   let assert Ok(input) = read("input.txt")
   let part1_ans = part1(input)
-  io.println("Part 1: ")
+  io.print("Part 1: ")
   io.debug(part1_ans)
   let part2_ans = part2(input)
-  io.println("Part 2: ")
+  io.print("Part 2: ")
   io.debug(part2_ans)
 }

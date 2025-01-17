@@ -51,10 +51,10 @@ pub fn part2(input: String) -> Int {
 pub fn main() {
   let assert Ok(input) = read(\"input.txt\")
   let part1_ans = part1(input)
-  io.println(\"Part 1: \")
+  io.print(\"Part 1: \")
   io.debug(part1_ans)
   let part2_ans = part2(input)
-  io.println(\"Part 2: \")
+  io.print(\"Part 2: \")
   io.debug(part2_ans)
 }" > src/${project}.gleam
 gleam add simplifile # used to read files
