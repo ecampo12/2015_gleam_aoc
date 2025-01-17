@@ -20,3 +20,8 @@ debug/
 target/
 **/*.rs.bk
 *.pdb
+# Gleam stuff
+*.beam
+*.ez
+/build
+erl_crash.dump

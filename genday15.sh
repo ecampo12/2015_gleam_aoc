@@ -29,10 +29,32 @@ if [[ $VALIDSESSION =~ "Puzzle inputs differ by user." ]] || [[ $VALIDSESSION =~
 fi
 
 gleam new ${project}
-gleam add simplifile # used to read files
 cd ${project}
 rm README.md
+rm .gitignore
 
 curl -s "https://adventofcode.com/${year}/day/${day}/input" --cookie "session=${AOC_SESSION}" -o input.txt
 # Remove the trailing blank line
 truncate -s -1 input.txt
+
+echo -n "import gleam/io
+import simplifile.{read}
+
+pub fn part1(input: String) -> Int {
+  todo
+}
+
+pub fn part2(input: String) -> Int {
+  todo
+}
+
+pub fn main() {
+  let assert Ok(input) = read(\"input.txt\")
+  let part1_ans = part1(input)
+  io.println(\"Part 1: \")
+  io.debug(part1_ans)
+  let part2_ans = part2(input)
+  io.println(\"Part 2: \")
+  io.debug(part2_ans)
+}" > src/${project}.gleam
+gleam add simplifile # used to read files
