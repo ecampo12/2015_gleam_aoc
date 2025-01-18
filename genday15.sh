@@ -58,3 +58,4 @@ pub fn main() {
   io.debug(part2_ans)
 }" > src/${project}.gleam
 gleam add simplifile # used to read files
+gleam add gleam_regexp@1 #regex
