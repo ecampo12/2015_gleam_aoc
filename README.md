@@ -1,6 +1,6 @@
 # My solutions for the Advent of Code 2015 puzzles
 
-I travel back in time to 20xx to solve the puzzles from the [Advent of Code](https://adventofcode.com/2015) event.
+I travel back in time to 2015 to solve the puzzles from the [Advent of Code](https://adventofcode.com/2015) event.
 
 Just my attempts at solving the puzzles, not necessarily the best solutions.
 
