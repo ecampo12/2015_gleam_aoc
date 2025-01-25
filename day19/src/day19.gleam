@@ -56,22 +56,31 @@ pub fn part1(input: String) -> Int {
   |> set.size
 }
 
-fn sythize_start(start: String, replacements: Dict(String, String)) -> Int {
-  let steps =
-    list.range(0, 9)
-    // 9 is arbitrary, but it works for the input
-    |> list.fold_until(#(start, 0), fn(xcc, _x) {
-      case string.contains(start, "e") {
+// Not really needed, but it clearly shows the intent of the function. A for loop that can break.
+fn for_loop_break(
+  range: List(Int),
+  acc: a,
+  func: fn(a, Int) -> list.ContinueOrStop(a),
+) -> a {
+  list.fold_until(range, acc, func)
+}
+
+// Looks like a lot, but it's just finding a substring that can be replaced, replacing it, and
+// repeating until the string is the letter "e". I'm sure there's a recursive way to do this, but
+// I've spent enough time on this problem.
+fn synthesize(start: String, replacements: Dict(String, String)) -> Int {
+  let final =
+    // 10 is arbitrary, but it works for the input
+    for_loop_break(list.range(0, 10), #(start, 0), fn(acc, _x) {
+      case start == "e" {
         True -> {
-          list.Stop(xcc)
+          list.Stop(acc)
         }
         False -> {
           let len = length(start)
-          list.range(0, len - 1)
-          |> list.fold_until(xcc, fn(acc, i) {
-            list.range(1, len)
-            |> list.fold_until(acc, fn(acc2, j) {
-              let #(start, steps) = acc2
+          for_loop_break(list.range(0, len - 1), acc, fn(bcc, i) {
+            for_loop_break(list.range(1, len), bcc, fn(ccc, j) {
+              let #(start, steps) = ccc
               let sub = slice(start, i, j)
               case dict.get(replacements, sub) {
                 Ok(to) -> {
@@ -80,7 +89,7 @@ fn sythize_start(start: String, replacements: Dict(String, String)) -> Int {
                   list.Stop(#(new_start, steps + 1))
                 }
                 _ -> {
-                  list.Continue(#(start, steps))
+                  list.Continue(ccc)
                 }
               }
             })
@@ -91,18 +100,16 @@ fn sythize_start(start: String, replacements: Dict(String, String)) -> Int {
       }
     })
 
-  let #(_, x) = steps
-  x
+  let #(_, steps) = final
+  steps
 }
 
 pub fn part2(input: String) -> Int {
   let #(start, replacements) = parse(input)
   let r =
-    list.map(replacements, fn(x) {
-      #(x.to |> string.reverse, x.from |> string.reverse)
-    })
+    list.map(replacements, fn(x) { #(x.to, x.from) })
     |> dict.from_list
-  sythize_start(start |> string.reverse, r)
+  synthesize(start, r)
 }
 
 pub fn main() {
