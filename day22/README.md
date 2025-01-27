@@ -1,0 +1,1 @@
+Can be done in gleam, but its just a harder version of day 21. I have the stars for this day, so I'll get back to it later.
